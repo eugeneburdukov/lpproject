@@ -10,5 +10,4 @@ Before(({ I }) => {
 
 Scenario('Submit Customer Service form', ({ I, cspagePage }) => {
     cspagePage.submitForm();
-    pause();
 });
