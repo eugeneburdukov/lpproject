@@ -24,6 +24,7 @@ class cspagePage {
     I.fillField(this.emailField, "name@mail.com");
     I.wait(2);
     I.click(this.registerButton);
+    I.saveScreenshot("registerStatus.png", true);
   }
 
 }
