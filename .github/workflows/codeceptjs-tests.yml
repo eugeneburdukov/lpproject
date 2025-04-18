@@ -7,6 +7,7 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -21,14 +22,13 @@ jobs:
 
     - name: Set environment variables
       env:
-        API_KEY: ${{ secrets.API_KEY }}        # Replace with your actual secret names
+        API_KEY: ${{ secrets.API_KEY }}
         API_URL: ${{ secrets.API_URL }}
         CASAOSPAGE: ${{ secrets.CASAOSPAGE }}
         USERNAME: ${{ secrets.USERNAME }}
         PASSWORD: ${{ secrets.PASSWORD }}
       run: |
         echo "Environment variables are set."
-        # Any additional setup code can be added here
 
     - name: Install dependencies
       run: npm install
@@ -46,3 +46,11 @@ jobs:
         name: mochawesome-report
         path: output/mochawesome-report.json
         retention-days: 30
+
+    - name: Upload Saved Screenshots
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: saved-screenshots
+        path: output/*.png
+        retention-days: 14
